@@ -8,7 +8,7 @@ export default function Landing() {
     <>
       <Helmet>
         <title>ScholarGuide — Lesson Plans for Educators, Reading Growth for Parents | K-8</title>
-        <meta name="description" content="AI lesson plans for K-8 teachers and homeschool parents. Free reading fluency check with grade-level benchmarks. Track student growth quarter over quarter." />
+        <meta name="description" content="Ready-to-teach K-8 lesson plans in seconds for teachers. Free two-minute reading check for parents, measured against the fluency benchmarks US schools use. Watch kids grow quarter after quarter." />
       </Helmet>
 
       {/* ===== HERO — dual product ===== */}
@@ -21,10 +21,12 @@ export default function Landing() {
               Built for K-8 classrooms and homes
             </div>
             <h1 style={{ fontSize: "40px", lineHeight: 1.12, marginBottom: "14px", letterSpacing: "-0.5px" }}>
-              Teach better. <span style={{ color: "var(--primary)" }}>Track growth.</span>
+              Every lesson planned. <span style={{ color: "var(--primary)" }}>Every reader on track.</span>
             </h1>
-            <p style={{ fontSize: "17px", color: "var(--text-muted)" }}>
-              One platform, two products: AI lesson planning for educators and reading fluency tracking for parents.
+            <p style={{ fontSize: "17px", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto" }}>
+              ScholarGuide gives K-8 teachers ready-to-teach lesson plans in seconds — and gives parents a
+              free two-minute reading check measured against the benchmarks US schools actually use.
+              One platform, one goal: kids who keep growing.
             </p>
           </div>
 
