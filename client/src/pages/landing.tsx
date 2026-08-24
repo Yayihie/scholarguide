@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { FLUENCY_BENCHMARKS } from "@shared/readingFluencyBenchmarks";
 import { trackEvent } from "../lib/analytics";
 
 export default function Landing() {
+  const [product, setProduct] = useState<"planner" | "tracker">("planner");
   return (
     <>
       <Helmet>
@@ -24,9 +26,9 @@ export default function Landing() {
               Every lesson planned. <span style={{ color: "var(--primary)" }}>Every reader on track.</span>
             </h1>
             <p style={{ fontSize: "17px", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto" }}>
-              ScholarGuide gives K-8 teachers ready-to-teach lesson plans in seconds — and gives parents a
-              free two-minute reading check measured against the benchmarks US schools actually use.
-              One platform, one goal: kids who keep growing.
+              ScholarGuide gives K-8 teachers ready-to-teach lesson plans in seconds — across math,
+              writing, science, and technology — and gives parents a free two-minute reading check measured
+              against the benchmarks US schools actually use. One platform, one goal: kids who keep growing.
             </p>
           </div>
 
@@ -47,7 +49,7 @@ export default function Landing() {
                 Generate a full lesson plan for any grade K-8 and subject in seconds — materials, procedures, assessments, differentiation.
               </p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "7px", marginBottom: "20px" }}>
-                {["Any subject, any grade K-8", "Materials + assessments included", "Differentiation built in", "Standards-aligned"].map((f) => (
+                {["Math, writing, science & tech — K-8", "Materials + assessments included", "Differentiation built in", "Standards-aligned"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
@@ -185,10 +187,10 @@ export default function Landing() {
               <span className="badge-pill" style={{ background: "var(--primary-soft)", color: "var(--primary)", marginBottom: "16px" }}>For Educators</span>
               <h2 style={{ fontSize: "28px", marginBottom: "12px" }}>Lesson plans in seconds, not Sundays</h2>
               <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "20px" }}>
-                Tell it the grade and subject. Get a complete plan: objectives, materials, procedures, assessment, and differentiation for struggling and advanced students.
+                Tell it the grade and subject — math, writing, science, or technology. Get a complete plan: objectives, materials, procedures, assessment, and differentiation for struggling and advanced students.
               </p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-                {["Grade + subject in, full plan out", "Differentiation for every lesson", "Assessment ideas included", "Homeschool-friendly formats"].map((f) => (
+                {["Math, writing, science & tech plans", "Differentiation for every lesson", "Assessment ideas included", "Homeschool-friendly formats"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "var(--text-muted)" }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
@@ -330,10 +332,42 @@ export default function Landing() {
       {/* ===== PRICING ===== */}
       <section id="pricing" className="sg-section" style={{ background: "#fff" }}>
         <div className="sg-container">
-          <div style={{ textAlign: "center", marginBottom: "36px" }}>
-            <h2 style={{ fontSize: "30px", marginBottom: "10px" }}>Simple Pricing</h2>
-            <p style={{ fontSize: "17px", color: "var(--text-muted)" }}>The reading check is always free. Upgrade when you're ready.</p>
+          <div style={{ textAlign: "center", marginBottom: "28px" }}>
+            <h2 style={{ fontSize: "30px", marginBottom: "10px" }}>Pick your plan — or pick both</h2>
+            <p style={{ fontSize: "17px", color: "var(--text-muted)" }}>Only need lesson plans? Just want reading tracking? Buy what you actually use.</p>
           </div>
+
+          {/* Product toggle */}
+          <div className="clay-card" style={{
+            padding: "6px", maxWidth: "440px", margin: "0 auto 36px",
+            display: "flex", gap: "6px", background: "var(--bg-cream)",
+          }}>
+            <button
+              onClick={() => setProduct("planner")}
+              style={{
+                flex: 1, padding: "12px 16px", borderRadius: "14px", cursor: "pointer",
+                border: product === "planner" ? "3px solid var(--border-dark)" : "3px solid transparent",
+                background: product === "planner" ? "var(--primary)" : "transparent",
+                color: product === "planner" ? "#fff" : "var(--text-muted)",
+                fontFamily: "'Baloo 2', sans-serif", fontSize: "15px", fontWeight: 700,
+                transition: "all 0.15s ease", minHeight: "44px",
+              }}>
+              AI Lesson Planner
+            </button>
+            <button
+              onClick={() => setProduct("tracker")}
+              style={{
+                flex: 1, padding: "12px 16px", borderRadius: "14px", cursor: "pointer",
+                border: product === "tracker" ? "3px solid var(--border-dark)" : "3px solid transparent",
+                background: product === "tracker" ? "var(--cta)" : "transparent",
+                color: product === "tracker" ? "#fff" : "var(--text-muted)",
+                fontFamily: "'Baloo 2', sans-serif", fontSize: "15px", fontWeight: 700,
+                transition: "all 0.15s ease", minHeight: "44px",
+              }}>
+              Reading Fluency Tracker
+            </button>
+          </div>
+
           <div className="grid-3">
             {/* Free */}
             <div className="clay-card" style={{ padding: "26px", display: "flex", flexDirection: "column" }}>
@@ -341,7 +375,10 @@ export default function Landing() {
               <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For trying it out</p>
               <p style={{ fontSize: "32px", fontWeight: 700, color: "var(--text)", marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif" }}>$0<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
-                {["Free reading speed check", "1 student profile", "Quarterly diagnostics", "Basic curriculum plan"].map((f) => (
+                {(product === "planner"
+                  ? ["3 lesson plans / month", "Math, writing, science & tech", "1 teacher account"]
+                  : ["Free reading speed check", "1 student profile", "Quarterly diagnostics"]
+                ).map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
@@ -351,45 +388,52 @@ export default function Landing() {
               <Link to="/quick-check" className="btn-secondary" style={{ marginTop: "auto", justifyContent: "center" }}>Start Free</Link>
             </div>
 
-            {/* Basic — popular */}
-            <div className="clay-card" style={{ padding: "26px", position: "relative", borderColor: "var(--primary)", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-clay-hover)" }}>
-              <span className="badge-pill" style={{ position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: "var(--primary)", color: "#fff", fontSize: "12px", padding: "4px 14px" }}>Most Popular</span>
-              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Basic</h3>
-              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For parents tracking growth</p>
+            {/* Paid tier — same price, features swap by product */}
+            <div className="clay-card" style={{ padding: "26px", position: "relative", borderColor: product === "planner" ? "var(--primary)" : "var(--cta)", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-clay-hover)" }}>
+              <span className="badge-pill" style={{ position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: product === "planner" ? "var(--primary)" : "var(--cta)", color: "#fff", fontSize: "12px", padding: "4px 14px" }}>Most Popular</span>
+              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>{product === "planner" ? "Planner Pro" : "Tracker Pro"}</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>
+                {product === "planner" ? "For teachers & homeschool parents" : "For parents tracking growth"}
+              </p>
               <p style={{ fontSize: "32px", fontWeight: 700, marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif", color: "var(--text)" }}>$14<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
-                {["Everything in Free", "3 student profiles", "AI lesson planner", "Full curriculum library", "Growth dashboard + share cards"].map((f) => (
+                {(product === "planner"
+                  ? ["Unlimited lesson plans", "All subjects — math, writing, science, tech", "Differentiation for every lesson", "Assessment + materials included", "Export & print formats"]
+                  : ["Everything in Free", "3 student profiles", "Full curriculum library", "Growth dashboard + share cards", "Email progress digests"]
+                ).map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={product === "planner" ? "var(--primary)" : "var(--cta)"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link to="/settings" className={product === "planner" ? "btn-primary" : "btn-cta"} style={{ marginTop: "auto", justifyContent: "center" }}>
+                {product === "planner" ? "Get Planner Pro" : "Get Tracker Pro"}
+              </Link>
+            </div>
+
+            {/* Bundle */}
+            <div className="clay-card" style={{ padding: "26px", display: "flex", flexDirection: "column" }}>
+              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Everything Bundle</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>Both products, one price</p>
+              <p style={{ fontSize: "32px", fontWeight: 700, color: "var(--text)", marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif" }}>$24<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+                {["Unlimited lesson plans (all subjects)", "Reading tracker + 10 student profiles", "Growth dashboard + share cards", "Advanced analytics", "Priority support"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link to="/settings" className="btn-primary" style={{ marginTop: "auto", justifyContent: "center" }}>Get Basic</Link>
-            </div>
-
-            {/* Pro */}
-            <div className="clay-card" style={{ padding: "26px", display: "flex", flexDirection: "column" }}>
-              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Pro</h3>
-              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For classrooms & tutors</p>
-              <p style={{ fontSize: "32px", fontWeight: 700, color: "var(--text)", marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif" }}>$24<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
-                {["Everything in Basic", "10 student profiles", "Unlimited lesson plans", "Advanced analytics", "Priority support"].map((f) => (
-                  <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cta)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link to="/settings" className="btn-cta" style={{ marginTop: "auto", justifyContent: "center" }}>Get Pro</Link>
+              <Link to="/settings" className="btn-primary" style={{ marginTop: "auto", justifyContent: "center" }}>Get Everything</Link>
             </div>
           </div>
 
-          {/* Annual toggle note */}
+          {/* Annual note */}
           <div className="clay-card" style={{ padding: "16px 24px", marginTop: "20px", background: "var(--secondary-soft)", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             <p style={{ fontSize: "14px", color: "var(--text)", fontWeight: 600 }}>
-              Pay annually and get 2 months free — $140/yr Basic, $240/yr Pro.
+              Pay annually and get 2 months free — $140/yr single product, $240/yr Everything Bundle.
             </p>
           </div>
         </div>
