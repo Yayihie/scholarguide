@@ -1,7 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-gray-50 text-gray-900;
+:root {
+  /* ScholarGuide — Claymorphism + Stripe hybrid */
+  --primary: #533afd;
+  --primary-hover: #4434d4;
+  --secondary: #f59e0b;
+  --cta: #ec4899;
+  --cta-hover: #db2777;
+  --bg: #eff6ff;
+  --bg-cream: #fef9f3;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --heading: #061b31;
+  --card: #ffffff;
+  --border: #e4ecfc;
+  --border-dark: #0f172a;
+  --muted: #f1f5fd;
+  --accent-mint: #d1fae5;
+  --accent-purple: #e0e7ff;
+  --accent-blue: #dbeafe;
+  --success: #15be53;
+  --success-text: #108c3d;
+  --ruby: #ea2261;
+
+  /* Stripe shadows */
+  --shadow-clay: rgba(50,50,93,0.12) 0px 8px 16px -4px, rgba(0,0,0,0.06) 0px 4px 8px -2px;
+  --shadow-clay-hover: rgba(50,50,93,0.2) 0px 12px 24px -6px, rgba(0,0,0,0.08) 0px 6px 12px -3px;
+  --shadow-elevated: rgba(50,50,93,0.25) 0px 30px 45px -30px, rgba(0,0,0,0.1) 0px 18px 36px -18px;
+  --shadow-soft: rgba(23,23,23,0.06) 0px 3px 6px 0px;
+}
+
+@layer base {
+  body {
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-feature-settings: "ss01";
+    color: var(--text-muted);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans 3', system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--text);
+  }
+}
+
+@layer components {
+  /* Claymorphism card — the signature element */
+  .clay-card {
+    background: var(--card);
+    border: 3px solid var(--border-dark);
+    border-radius: 16px;
+    box-shadow: var(--shadow-clay);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .clay-card-hover:hover {
+    box-shadow: var(--shadow-clay-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 3px solid var(--border-dark);
+    box-shadow: var(--shadow-clay);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    min-height: 44px;
+  }
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(0px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--secondary);
+    color: var(--text);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 3px solid var(--border-dark);
+    box-shadow: var(--shadow-clay);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    min-height: 44px;
+  }
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-clay-hover);
+  }
+
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--cta);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 3px solid var(--border-dark);
+    box-shadow: var(--shadow-clay);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    min-height: 44px;
+  }
+  .btn-cta:hover {
+    background: var(--cta-hover);
+    transform: translateY(-1px);
+  }
+
+  /* Badge pill */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 3px solid var(--border-dark);
+    font-size: 13px;
+    font-weight: 600;
+    font-feature-settings: "ss01";
+  }
+
+  /* Stats number */
+  .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    font-feature-settings: "tnum";
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* Progress bar */
+  .progress-track {
+    height: 12px;
+    background: var(--border);
+    border-radius: 999px;
+    border: 2px solid var(--border-dark);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--cta);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+
+  /* Icon container */
+  .icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 3px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-box-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 3px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Section spacing */
+  .sg-section {
+    padding: 64px 16px;
+  }
+  @media (min-width: 768px) {
+    .sg-section {
+      padding: 80px 24px;
+    }
+  }
+
+  .sg-container {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  /* Focus ring — accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

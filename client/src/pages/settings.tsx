@@ -3,12 +3,10 @@ import { Helmet } from "react-helmet-async";
 import { apiRequest } from "../lib/api";
 
 export default function Settings() {
-  const [plan, setPlan] = useState<string>("free");
-  const [interval, setInterval] = useState<string>("monthly");
+  const [plan, setPlan] = useState("free");
+  const [interval, setInterval] = useState("monthly");
   const [emailPrefs, setEmailPrefs] = useState({ weeklyDigest: true, quarterEndNudge: true, weeklyPractice: true });
   const [loading, setLoading] = useState(true);
-  const [portalUrl, setPortalUrl] = useState<string | null>(null);
-  const [annualSavings, setAnnualSavings] = useState<{ eligible: boolean; savings: number } | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -18,22 +16,14 @@ export default function Settings() {
         setInterval(profile.subscriptionInterval || "monthly");
         const prefs = await apiRequest("/email-preferences");
         setEmailPrefs(prefs);
-        const savings = await apiRequest("/billing/annual-savings");
-        setAnnualSavings(savings);
-      } catch {
-        // Not logged in — show defaults
-      } finally {
-        setLoading(false);
-      }
+      } catch { /* not logged in */ }
+      finally { setLoading(false); }
     }
     load();
   }, []);
 
-  async function handleUpgrade(plan: "basic" | "pro", interval: "monthly" | "annual") {
-    const data = await apiRequest("/billing/create-checkout-session", {
-      method: "POST",
-      body: JSON.stringify({ plan, interval }),
-    });
+  async function handleUpgrade(p: "basic" | "pro", i: "monthly" | "annual") {
+    const data = await apiRequest("/billing/create-checkout-session", { method: "POST", body: JSON.stringify({ plan: p, interval: i }) });
     window.location.href = data.url;
   }
 
@@ -48,123 +38,67 @@ export default function Settings() {
     await apiRequest("/email-preferences", { method: "PUT", body: JSON.stringify(updated) });
   }
 
-  if (loading) return <div className="max-w-2xl mx-auto px-6 py-8">Loading...</div>;
+  if (loading) return <div className="sg-container" style={{ padding: "32px" }}>Loading...</div>;
 
   return (
     <>
-      <Helmet>
-        <title>Settings — ScholarGuide</title>
-      </Helmet>
-      <div className="max-w-2xl mx-auto px-6 py-8">
-        <h1 className="text-2xl font-bold mb-6">Settings</h1>
+      <Helmet><title>Settings — ScholarGuide</title></Helmet>
+      <div className="sg-container" style={{ padding: "32px 16px", maxWidth: "640px" }}>
+        <h1 style={{ fontSize: "28px", fontWeight: 700, marginBottom: "24px", color: "var(--text)" }}>Settings</h1>
 
         {/* Current Plan */}
-        <section className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold mb-4">Current Plan</h2>
-          <p className="text-gray-600 mb-2">
-            Plan: <strong className="capitalize">{plan}</strong> ({interval})
+        <div className="clay-card" style={{ padding: "24px", marginBottom: "16px" }}>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "12px", color: "var(--text)" }}>Current Plan</h2>
+          <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "16px" }}>
+            Plan: <strong style={{ color: "var(--text)" }} className="capitalize">{plan}</strong> ({interval})
           </p>
-
-          {/* Annual upsell card — shown to monthly subscribers */}
-          {plan !== "free" && interval === "monthly" && annualSavings?.eligible && (
-            <div className="bg-indigo-50 border border-indigo-200 p-4 rounded-lg mt-4">
-              <h3 className="font-semibold text-indigo-900">Switch to Annual & Save ${annualSavings.savings}/year</h3>
-              <p className="text-sm text-indigo-700 mt-1 mb-3">
-                You're currently on monthly billing. Switch to annual and save ${annualSavings.savings} per year —
-                that's like getting over a month free.
-              </p>
-              <button
-                onClick={openPortal}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-700"
-              >
-                Switch to Annual
-              </button>
-              <p className="text-xs text-indigo-500 mt-2">Opens Stripe Customer Portal to change your plan.</p>
-            </div>
-          )}
-
           {plan === "free" && (
-            <div className="flex gap-3 mt-4">
-              <button onClick={() => handleUpgrade("basic", "monthly")} className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm">
-                Upgrade to Basic ($14/mo)
-              </button>
-              <button onClick={() => handleUpgrade("pro", "monthly")} className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm">
-                Upgrade to Pro ($24/mo)
-              </button>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <button onClick={() => handleUpgrade("basic", "monthly")} className="btn-primary" style={{ fontSize: "14px" }}>Upgrade to Basic — $14/mo</button>
+              <button onClick={() => handleUpgrade("pro", "monthly")} className="btn-cta" style={{ fontSize: "14px" }}>Upgrade to Pro — $24/mo</button>
             </div>
           )}
-
           {plan !== "free" && (
-            <button onClick={openPortal} className="text-sm text-indigo-600 underline mt-3">
-              Manage subscription in Stripe Portal
-            </button>
+            <button onClick={openPortal} className="btn-secondary" style={{ fontSize: "14px" }}>Manage in Stripe Portal</button>
           )}
-        </section>
+        </div>
 
         {/* Email Preferences */}
-        <section className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold mb-4">Email Preferences</h2>
-          <div className="space-y-3">
-            <label className="flex items-center justify-between">
-              <span>Weekly digest (what my child worked on this week)</span>
-              <input
-                type="checkbox"
-                checked={emailPrefs.weeklyDigest}
-                onChange={(e) => updateEmailPref("weeklyDigest", e.target.checked)}
-                className="w-5 h-5"
-              />
-            </label>
-            <label className="flex items-center justify-between">
-              <span>Quarter-end nudge (time for new diagnostic)</span>
-              <input
-                type="checkbox"
-                checked={emailPrefs.quarterEndNudge}
-                onChange={(e) => updateEmailPref("quarterEndNudge", e.target.checked)}
-                className="w-5 h-5"
-              />
-            </label>
-            <label className="flex items-center justify-between">
-              <span>Weekly practice reminder</span>
-              <input
-                type="checkbox"
-                checked={emailPrefs.weeklyPractice}
-                onChange={(e) => updateEmailPref("weeklyPractice", e.target.checked)}
-                className="w-5 h-5"
-              />
-            </label>
+        <div className="clay-card" style={{ padding: "24px", marginBottom: "16px" }}>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "16px", color: "var(--text)" }}>Email Preferences</h2>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {([
+              ["weeklyDigest", "Weekly digest (what my child worked on this week)"],
+              ["quarterEndNudge", "Quarter-end nudge (time for new diagnostic)"],
+              ["weeklyPractice", "Weekly practice reminder"],
+            ] as const).map(([key, label]) => (
+              <label key={key} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "15px", color: "var(--text)", cursor: "pointer", minHeight: "44px" }}>
+                <span>{label}</span>
+                <input type="checkbox" checked={emailPrefs[key]}
+                  onChange={(e) => updateEmailPref(key, e.target.checked)}
+                  style={{ width: "20px", height: "20px", accentColor: "var(--primary)" }} />
+              </label>
+            ))}
           </div>
-        </section>
+        </div>
 
         {/* Account */}
-        <section className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold mb-4">Account</h2>
-          <div className="flex gap-4">
-            <button
-              onClick={() => window.location.href = "/api/account/export"}
-              className="text-sm text-indigo-600 underline"
-            >
-              Export my data
-            </button>
-            <button
-              onClick={async () => {
-                if (confirm("This permanently deletes your account and all data. This cannot be undone.")) {
-                  await apiRequest("/account", { method: "DELETE" });
-                  localStorage.removeItem("sg_token");
-                  window.location.href = "/";
-                }
-              }}
-              className="text-sm text-red-600 underline"
-            >
-              Delete my account
-            </button>
+        <div className="clay-card" style={{ padding: "24px", marginBottom: "16px" }}>
+          <h2 style={{ fontSize: "20px", fontWeight: 700, marginBottom: "12px", color: "var(--text)" }}>Account</h2>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <button onClick={() => window.location.href = "/api/account/export"} className="btn-secondary" style={{ fontSize: "14px" }}>Export my data</button>
+            <button onClick={async () => {
+              if (confirm("This permanently deletes your account and all data. This cannot be undone.")) {
+                await apiRequest("/account", { method: "DELETE" });
+                localStorage.removeItem("sg_token");
+                window.location.href = "/";
+              }
+            }} style={{
+              fontSize: "14px", padding: "10px 16px", borderRadius: "12px", cursor: "pointer",
+              background: "rgba(234,34,97,0.1)", color: "var(--ruby)", border: "3px solid var(--border-dark)",
+            }}>Delete my account</button>
           </div>
-        </section>
-
-        {/* Integrations note */}
-        <section className="bg-white border border-gray-200 rounded-xl p-6">
-          <h2 className="text-lg font-semibold mb-4">Integrations</h2>
-          <p className="text-sm text-gray-500">PostHog analytics, Resend email, Stripe billing, Gemini AI — configured server-side.</p>
-        </section>
+        </div>
       </div>
     </>
   );
