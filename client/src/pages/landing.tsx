@@ -26,9 +26,10 @@ export default function Landing() {
               Every lesson planned. <span style={{ color: "var(--primary)" }}>Every reader on track.</span>
             </h1>
             <p style={{ fontSize: "17px", color: "var(--text-muted)", maxWidth: "560px", margin: "0 auto" }}>
-              ScholarGuide gives K-8 teachers ready-to-teach lesson plans in seconds — across math,
-              writing, science, and technology — and gives parents a free two-minute reading check measured
-              against the benchmarks US schools actually use. One platform, one goal: kids who keep growing.
+              ScholarGuide gives K-8 teachers ready-to-teach lesson plans in seconds — and gives parents a
+              free two-minute reading check plus growth tracking in math, writing, science, reading
+              comprehension, and tech, measured against the benchmarks US schools actually use. One
+              platform, one goal: kids who keep growing.
             </p>
           </div>
 
@@ -72,12 +73,12 @@ export default function Landing() {
               <span className="badge-pill" style={{ background: "var(--cta-soft)", color: "var(--cta-hover)", fontSize: "12px", padding: "4px 12px", marginBottom: "12px" }}>
                 For Parents
               </span>
-              <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>Reading Fluency Tracker</h2>
+              <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>Student Growth Tracker</h2>
               <p style={{ fontSize: "15px", color: "var(--text-muted)", marginBottom: "18px" }}>
-                Free 2-minute check shows if your child reads at grade level. Then get a curriculum plan matched to their level.
+                Start with the free 2-minute reading check. Then track quarter-by-quarter growth in math, writing, science, reading comprehension, and tech.
               </p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "7px", marginBottom: "20px" }}>
-                {["Free 2-minute reading check", "Real grade-level benchmarks", "Quarterly growth tracking", "AI curriculum matched to level"].map((f) => (
+                {["Free reading + comprehension check", "Math, writing, science & tech tracking", "Quarterly growth, every subject", "AI curriculum matched to level"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cta)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
@@ -271,12 +272,12 @@ export default function Landing() {
             </div>
             <div>
               <span className="badge-pill" style={{ background: "var(--cta-soft)", color: "var(--cta-hover)", marginBottom: "16px" }}>For Parents</span>
-              <h2 style={{ fontSize: "28px", marginBottom: "12px" }}>Know if your child is on track</h2>
+              <h2 style={{ fontSize: "28px", marginBottom: "12px" }}>Know if your child is on track — in every subject</h2>
               <p style={{ fontSize: "16px", color: "var(--text-muted)", marginBottom: "20px" }}>
-                The free 2-minute check compares your child's reading speed and accuracy against the same benchmarks US schools use. No signup, no cost.
+                Start with the free 2-minute reading check, benchmarked against the same data US schools use. Then watch quarter-by-quarter growth in math, writing, science, reading comprehension, and tech — all in one dashboard. No signup, no cost to start.
               </p>
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px", marginBottom: "24px" }}>
-                {["Instant WPM + accuracy results", "Grade-level status vs real benchmarks", "Quarterly growth tracking", "Shareable growth story cards"].map((f) => (
+                {["Instant WPM + accuracy results", "Grade-level status vs real benchmarks", "Math, writing, science & tech tracking", "Shareable growth story cards"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "15px", color: "var(--text-muted)" }}>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cta)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
@@ -364,7 +365,7 @@ export default function Landing() {
                 fontFamily: "'Baloo 2', sans-serif", fontSize: "15px", fontWeight: 700,
                 transition: "all 0.15s ease", minHeight: "44px",
               }}>
-              Reading Fluency Tracker
+              Student Growth Tracker
             </button>
           </div>
 
@@ -377,7 +378,7 @@ export default function Landing() {
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
                 {(product === "planner"
                   ? ["3 lesson plans / month", "Math, writing, science & tech", "1 teacher account"]
-                  : ["Free reading speed check", "1 student profile", "Quarterly diagnostics"]
+                  : ["Free reading + comprehension check", "1 student profile", "Quarterly diagnostics"]
                 ).map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
@@ -399,7 +400,7 @@ export default function Landing() {
               <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
                 {(product === "planner"
                   ? ["Unlimited lesson plans", "All subjects — math, writing, science, tech", "Differentiation for every lesson", "Assessment + materials included", "Export & print formats"]
-                  : ["Everything in Free", "3 student profiles", "Full curriculum library", "Growth dashboard + share cards", "Email progress digests"]
+                  : ["Everything in Free", "3 student profiles", "All-subject tracking: math, writing, science, tech", "Growth dashboard + share cards", "Email progress digests"]
                 ).map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={product === "planner" ? "var(--primary)" : "var(--cta)"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
@@ -445,7 +446,7 @@ export default function Landing() {
           <div className="clay-card" style={{ padding: "36px", textAlign: "center", background: "var(--primary)" }}>
             <h2 style={{ fontSize: "26px", marginBottom: "10px", color: "#fff" }}>Start with either — free</h2>
             <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.85)", marginBottom: "24px" }}>
-              Run the free reading check or generate your first lesson plan. No credit card for either.
+              Run the free reading check, start tracking growth, or generate your first lesson plan. No credit card for any of it.
             </p>
             <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
               <Link to="/quick-check" className="btn-cta" style={{ fontSize: "16px", padding: "12px 28px" }}
@@ -470,7 +471,7 @@ export default function Landing() {
                 <span style={{ fontFamily: "'Baloo 2', sans-serif", fontSize: "18px", fontWeight: 700, color: "var(--text)" }}>ScholarGuide</span>
               </div>
               <p style={{ fontSize: "14px", color: "var(--text-muted)", maxWidth: "260px" }}>
-                K-8 lesson planning for educators and reading growth tracking for parents.
+                K-8 lesson planning for educators and all-subject growth tracking for parents.
               </p>
             </div>
             <div>

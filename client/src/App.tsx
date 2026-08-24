@@ -69,8 +69,8 @@ export default function App() {
   return (
     <>
       <Helmet>
-        <title>ScholarGuide — Lesson Plans for Educators, Reading Growth for Parents | K-8</title>
-        <meta name="description" content="Ready-to-teach K-8 lesson plans in seconds for teachers. Free two-minute reading check for parents, measured against the fluency benchmarks US schools use. Watch kids grow quarter after quarter." />
+        <title>ScholarGuide — K-8 Lesson Plans & Student Growth Tracking in Every Subject</title>
+        <meta name="description" content="Ready-to-teach K-8 lesson plans in seconds for teachers. Free reading check plus growth tracking in math, writing, science, reading comprehension, and tech for parents. Watch kids grow quarter after quarter." />
       </Helmet>
 
       {/* Floating claymorphism nav */}
