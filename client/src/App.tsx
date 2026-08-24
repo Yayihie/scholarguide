@@ -30,6 +30,7 @@ export default function App() {
   const isQuickCheck = location.pathname === "/quick-check";
 
   const navLinks = [
+    { label: "Lesson Planner", href: "#lesson-planner" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Benchmarks", href: "#benchmarks" },
     { label: "Pricing", href: "#pricing" },
