@@ -1,0 +1,35 @@
+name: Scheduled Email Nudges
+
+on:
+  schedule:
+    # Weekly digest — every Sunday at 6am EST (11am UTC)
+    - cron: "0 11 * * 0"
+    # Weekly practice reminder — every Wednesday at 9am EST (2pm UTC)
+    - cron: "0 14 * * 3"
+    # Quarter-end nudge — first of Jan, Apr, Jul, Oct at 7am EST (12pm UTC)
+    - cron: "0 12 1 1,4,7,10 *"
+
+jobs:
+  send-nudges:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Weekly Digest
+        if: github.event.schedule == '0 11 * * 0'
+        run: |
+          curl -X POST ${{ secrets.APP_URL }}/api/cron/weekly-digest \
+            -H "x-cron-secret: ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json"
+
+      - name: Weekly Practice Reminder
+        if: github.event.schedule == '0 14 * * 3'
+        run: |
+          curl -X POST ${{ secrets.APP_URL }}/api/cron/weekly-practice-reminder \
+            -H "x-cron-secret: ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json"
+
+      - name: Quarter-End Nudge
+        if: github.event.schedule == '0 12 1 1,4,7,10 *'
+        run: |
+          curl -X POST ${{ secrets.APP_URL }}/api/cron/quarter-end-nudge \
+            -H "x-cron-secret: ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json"
