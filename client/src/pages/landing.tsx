@@ -336,45 +336,61 @@ export default function Landing() {
           </div>
           <div className="grid-3">
             {/* Free */}
-            <div className="clay-card" style={{ padding: "24px" }}>
-              <h3 style={{ fontSize: "18px", marginBottom: "4px" }}>Free</h3>
-              <p style={{ fontSize: "30px", fontWeight: 700, color: "var(--text)", marginBottom: "16px", fontFamily: "'Baloo 2', sans-serif" }}>$0<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "7px" }}>
-                {["1 student", "Quarterly diagnostics", "Basic curriculum", "Free reading check"].map((f) => (
+            <div className="clay-card" style={{ padding: "26px", display: "flex", flexDirection: "column" }}>
+              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Free</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For trying it out</p>
+              <p style={{ fontSize: "32px", fontWeight: 700, color: "var(--text)", marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif" }}>$0<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+                {["Free reading speed check", "1 student profile", "Quarterly diagnostics", "Basic curriculum plan"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
                   </li>
                 ))}
               </ul>
+              <Link to="/quick-check" className="btn-secondary" style={{ marginTop: "auto", justifyContent: "center" }}>Start Free</Link>
             </div>
-            {/* Basic */}
-            <div className="clay-card" style={{ padding: "24px", position: "relative", borderColor: "var(--primary)" }}>
-              <span className="badge-pill" style={{ position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: "var(--primary)", color: "#fff", fontSize: "12px", padding: "4px 14px" }}>Popular</span>
-              <h3 style={{ fontSize: "18px", marginBottom: "4px" }}>Basic</h3>
-              <p style={{ fontSize: "30px", fontWeight: 700, marginBottom: "16px", fontFamily: "'Baloo 2', sans-serif", color: "var(--text)" }}>$14<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "7px" }}>
-                {["3 students", "All diagnostics", "AI lesson planner", "Growth tracking"].map((f) => (
+
+            {/* Basic — popular */}
+            <div className="clay-card" style={{ padding: "26px", position: "relative", borderColor: "var(--primary)", display: "flex", flexDirection: "column", boxShadow: "var(--shadow-clay-hover)" }}>
+              <span className="badge-pill" style={{ position: "absolute", top: "-14px", left: "50%", transform: "translateX(-50%)", background: "var(--primary)", color: "#fff", fontSize: "12px", padding: "4px 14px" }}>Most Popular</span>
+              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Basic</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For parents tracking growth</p>
+              <p style={{ fontSize: "32px", fontWeight: 700, marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif", color: "var(--text)" }}>$14<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+                {["Everything in Free", "3 student profiles", "AI lesson planner", "Full curriculum library", "Growth dashboard + share cards"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
                   </li>
                 ))}
               </ul>
+              <Link to="/settings" className="btn-primary" style={{ marginTop: "auto", justifyContent: "center" }}>Get Basic</Link>
             </div>
+
             {/* Pro */}
-            <div className="clay-card" style={{ padding: "24px" }}>
-              <h3 style={{ fontSize: "18px", marginBottom: "4px" }}>Pro</h3>
-              <p style={{ fontSize: "30px", fontWeight: 700, color: "var(--text)", marginBottom: "16px", fontFamily: "'Baloo 2', sans-serif" }}>$24<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "7px" }}>
-                {["10 students", "Everything in Basic", "Advanced analytics", "Priority support"].map((f) => (
+            <div className="clay-card" style={{ padding: "26px", display: "flex", flexDirection: "column" }}>
+              <h3 style={{ fontSize: "19px", marginBottom: "4px" }}>Pro</h3>
+              <p style={{ fontSize: "13px", color: "var(--text-muted)", marginBottom: "14px" }}>For classrooms & tutors</p>
+              <p style={{ fontSize: "32px", fontWeight: 700, color: "var(--text)", marginBottom: "18px", fontFamily: "'Baloo 2', sans-serif" }}>$24<span style={{ fontSize: "15px", fontWeight: 500, color: "var(--text-muted)" }}>/mo</span></p>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
+                {["Everything in Basic", "10 student profiles", "Unlimited lesson plans", "Advanced analytics", "Priority support"].map((f) => (
                   <li key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: "var(--text-muted)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cta)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
                     {f}
                   </li>
                 ))}
               </ul>
+              <Link to="/settings" className="btn-cta" style={{ marginTop: "auto", justifyContent: "center" }}>Get Pro</Link>
             </div>
+          </div>
+
+          {/* Annual toggle note */}
+          <div className="clay-card" style={{ padding: "16px 24px", marginTop: "20px", background: "var(--secondary-soft)", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <p style={{ fontSize: "14px", color: "var(--text)", fontWeight: 600 }}>
+              Pay annually and get 2 months free — $140/yr Basic, $240/yr Pro.
+            </p>
           </div>
         </div>
       </section>
