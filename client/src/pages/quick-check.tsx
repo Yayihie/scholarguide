@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { QUICK_CHECK_PASSAGES } from "@shared/quickCheckPassages";
 import {
@@ -14,7 +14,11 @@ type Step = "grade" | "instructions" | "reading" | "result";
 
 export default function QuickCheck() {
   const [step, setStep] = useState<Step>("grade");
-  const [grade, setGrade] = useState<number>(3);
+  const [searchParams] = useSearchParams();
+  const [grade, setGrade] = useState<number>(() => {
+    const g = parseInt(searchParams.get("grade") || "3", 10);
+    return g >= 1 && g <= 8 ? g : 3;
+  });
   const [seconds, setSeconds] = useState(0);
   const [wordsMissed, setWordsMissed] = useState(0);
   const [result, setResult] = useState<FluencyResult | null>(null);
