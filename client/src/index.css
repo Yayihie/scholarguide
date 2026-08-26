@@ -295,6 +295,14 @@
     .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
   }
 
+  /* Stats strip — 2-col mobile, 4-col desktop */
+  .stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (min-width: 640px) {
+    .stats-strip { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  }
+
   /* Benchmark table */
   .bench-table {
     width: 100%;
@@ -335,9 +343,11 @@
   /* ===== NAV responsive ===== */
   .nav-tabs { display: none; }
   .nav-burger { display: flex; }
+  .nav-login { display: none; }
   @media (min-width: 860px) {
     .nav-tabs { display: flex; }
     .nav-burger { display: none; }
+    .nav-login { display: inline-flex; }
   }
 
   /* Focus */

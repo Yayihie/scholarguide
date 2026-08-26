@@ -98,11 +98,16 @@ export default function App() {
             )}
           </div>
 
-          <Link to="/settings" className="btn-primary" style={{ fontSize: "14px", padding: "8px 18px", flexShrink: 0 }}>
+          {/* Desktop Login — hidden on mobile (shown in burger menu instead) */}
+          <Link
+            to="/settings"
+            className="btn-primary nav-login"
+            style={{ fontSize: "14px", padding: "8px 18px", flexShrink: 0 }}
+          >
             Login
           </Link>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button — hidden on desktop */}
           <button className="nav-burger" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)} style={{
             display: "flex", width: "44px", height: "44px", borderRadius: "12px",
             background: menuOpen ? "var(--primary-soft)" : "var(--secondary-soft)", border: "3px solid var(--border-dark)",
@@ -142,6 +147,16 @@ export default function App() {
                   <Link key={t.to} to={t.to} className="btn-ghost" onClick={() => setMenuOpen(false)}
                     style={{ justifyContent: "flex-start", padding: "12px 16px", fontSize: "15px", color: t.accent ? "var(--cta-hover)" : undefined, fontWeight: t.accent ? 700 : undefined }}>{t.label}</Link>
                 ))}
+                {/* Login — full-width primary CTA in mobile menu */}
+                <div style={{ height: "1px", background: "var(--border)", margin: "8px 4px" }} />
+                <Link
+                  to="/settings"
+                  className="btn-primary"
+                  onClick={() => setMenuOpen(false)}
+                  style={{ justifyContent: "center", padding: "12px 16px", fontSize: "15px", marginTop: "4px" }}
+                >
+                  Login
+                </Link>
               </>
             )}
           </div>

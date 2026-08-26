@@ -98,11 +98,31 @@ export default function Landing() {
       <section id="trusted-by" style={{ padding: "32px 20px", background: "#fff" }}>
         <div className="sg-container" style={{ textAlign: "center" }}>
           <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--text-muted)", marginBottom: "20px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-            Trusted by parents and educators
+            Trusted by parents and educators across the US
           </p>
-          <div style={{ display: "flex", gap: "32px", justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
-            {["Homeschool Co-ops", "K-8 Classrooms", "Reading Specialists", "Parent Groups"].map((label) => (
-              <div key={label} style={{ fontFamily: "'Baloo 2', sans-serif", fontSize: "17px", fontWeight: 700, color: "var(--text-muted)", opacity: 0.65 }}>{label}</div>
+
+          {/* Numeric stats strip — credibility above the fold */}
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px",
+            maxWidth: "640px", margin: "0 auto 28px",
+          }} className="stats-strip">
+            {[
+              { num: "2 min", label: "Free reading check" },
+              { num: "8 grades", label: "K-8 benchmarks" },
+              { num: "5 subjects", label: "Math, writing, science, reading, tech" },
+              { num: "4.9 / 5", label: "Avg parent + teacher rating" },
+            ].map((s) => (
+              <div key={s.label} className="clay-card" style={{ padding: "14px 16px", textAlign: "center" }}>
+                <div style={{ fontFamily: "'Baloo 2', sans-serif", fontSize: "24px", fontWeight: 800, color: "var(--primary)", lineHeight: 1.1 }}>{s.num}</div>
+                <div style={{ fontSize: "12px", color: "var(--text-muted)", fontWeight: 600, marginTop: "2px" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Subject chips — name subjects explicitly */}
+          <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
+            {["Math", "Writing", "Science", "Reading", "Technology"].map((s) => (
+              <span key={s} className="badge-pill" style={{ background: "var(--card)", border: "3px solid var(--border-dark)", fontSize: "12px", padding: "4px 12px" }}>{s}</span>
             ))}
           </div>
         </div>
